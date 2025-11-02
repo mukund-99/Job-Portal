@@ -1,0 +1,1258 @@
+<!-- <!DOCTYPE html>
+<html lang="en"> -->
+    <%- include('navbar.ejs') %>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+        }
+        
+        body {
+            /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            /* padding: 20px; */
+        }
+        
+        .profile-container {
+            max-width: 1200px;
+            margin-left: 20%;
+            /* margin: 0 20%; */
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .profile-header {
+            /* background-color: #7a919f; */
+            background-image: url('https://www.shutterstock.com/image-illustration/blue-modern-futurist-technology-linkedin-260nw-2372954885.jpg');
+            /* background-repeat: no-repeat; */
+            background-size: cover;
+
+            /* background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); */
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid white;
+            object-fit: cover;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .photo-upload-area {
+            border: 2px dashed #dee2e6;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+        
+        .photo-upload-area:hover {
+            border-color: var(--primary);
+            background-color: rgba(37, 99, 235, 0.05);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .form-control, .form-select {
+            border-radius: 10px;
+            padding: 12px 15px;
+            border: 1px solid #dee2e6;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+        }
+        
+        .skill-tag {
+            background: #e0f2fe;
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin: 4px;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        .skill-tag i {
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        
+        .education-item, .experience-item, .project-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+            position: relative;
+        }
+        
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
+        }
+        
+        .btn-outline-custom {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-custom:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-pills .nav-link {
+            color: var(--dark);
+            padding: 12px 20px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .nav-pills .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-pills .nav-link i {
+            width: 20px;
+            margin-right: 10px;
+        }
+        
+        .required::after {
+            content: "*";
+            color: #dc2626;
+            margin-left: 4px;
+        }
+        
+        .tab-pane {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile-info-display {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 1.1rem;
+            color: var(--dark);
+        }
+        
+        .profile-completion {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .progress {
+            height: 10px;
+            margin-top: 10px;
+        }
+        
+        .document-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .document-info {
+            flex: 1;
+        }
+        
+        .document-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray);
+        }
+        
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-card">
+            <!-- Profile Header -->
+            <div class="profile-header profile-card shadow-lg mb-2 mt-2">
+                <div class="photo-preview-container text-center">
+                    <img id="profilePreview" 
+                         src="<%= (employee[0].profile_photo) ? employee[0].profile_photo : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNzXYh-X4wxX1jfbPywa8HWoNGDnx1Tlo0-g&s' %>" 
+                         alt="Profile" 
+                         class="profile-avatar"
+                         onclick="document.getElementById('profilePhotoInput').click()">
+                    <h4 class="mt-3" id="studentNameDisplay"><%= employee[0].employee_name || 'Student Name' %></h4>
+                    <p class="mb-0" id="studentMajorDisplay"><%= employee[0].current_designation || 'Student' %></p>
+                    <!-- <p class="mb-0" id="studentIdDisplay">ID: <%= employee[0].employee_id || 'N/A' %></p> -->
+                    <input type="hidden" id="studentIdInput" value="<%= employee[0].employee_id || 'N/A' %>" readonly>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Left Navigation -->
+                <div class="col-lg-3 border-end">
+                    <div class="p-4">
+                        <!-- Profile Completion -->
+                        <div class="profile-completion mt-3">
+                            <h6 class="mb-2">Profile Completion</h6>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" 
+                                     style="width: <%= profileCompletePercent %>%" 
+                                     aria-valuenow="<%= profileCompletePercent %>" 
+                                     aria-valuemin="0" aria-valuemax="100">
+                                </div>
+                            </div>
+                            <small class="text-muted"><%= profileCompletePercent %>% Complete</small>
+                        </div>
+                        
+                        <ul class="nav nav-pills flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="pill" href="#personal">
+                                    <i class="fas fa-user"></i> Personal Info
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="pill" href="#education">
+                                    <i class="fas fa-graduation-cap"></i> Education
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="pill" href="#skills">
+                                    <i class="fas fa-laptop-code"></i> Skills
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="pill" href="#projects">
+                                    <i class="fas fa-project-diagram"></i> Projects
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="pill" href="#experience">
+                                    <i class="fas fa-briefcase"></i> Experience
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="pill" href="#documents">
+                                    <i class="fas fa-file-alt"></i> Documents
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Content -->
+                <div class="col-lg-9">
+                    <div class="p-4">
+                        <div class="d-flex justify-content-between align-items-center mb-4 mt-3">
+                            <h3 class="mb-0">Student Profile</h3>
+                            <button class="action-btn" id="toggleEditBtn">
+                                <i class="fas fa-edit me-2"></i>Edit Profile
+                            </button>
+                        </div>
+                        
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" id="successAlert" style="display: none;">
+                            Profile updated successfully!
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        
+                        <form id="profileForm" action="/employee/save_profile" method="POST" enctype="multipart/form-data" >
+                            <!-- Hidden inputs for dynamic data -->
+                            <input type="hidden" name="projects_data" id="projectsDataInput" value="">
+                            <input type="hidden" name="experience_data" id="experienceDataInput" value="">
+                            <input type="hidden" name="skills" id="skillsInput" value="<%= employee[0].skills ? employee[0].skills.join(',') : '' %>">
+                            
+                            <div class="tab-content">
+                                <!-- Personal Information Tab -->
+                                <div class="tab-pane fade show active" id="personal">
+                                    <h4 class="section-title">Personal Information</h4>
+                                    
+                                    <!-- Profile View Mode -->
+                                    <div id="personalView">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="profile-info-display">
+                                                    <div class="info-label">Full Name</div>
+                                                    <div class="info-value" id="viewFullName"><%= employee[0].employee_name || 'Not provided' %></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="profile-info-display">
+                                                    <div class="info-label">Designation</div>
+                                                    <div class="info-value" id="viewDesignation"><%= employee[0].current_designation || 'Not provided' %></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="profile-info-display">
+                                                    <div class="info-label">Email</div>
+                                                    <div class="info-value" id="viewEmail"><%= employee[0].employee_email || 'Not provided' %></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="profile-info-display">
+                                                    <div class="info-label">Phone</div>
+                                                    <div class="info-value" id="viewPhone"><%= employee[0].employee_mobile || 'Not provided' %></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <div class="profile-info-display">
+                                                    <div class="info-label">Date of Birth</div>
+                                                    <div class="info-value" id="viewDob">
+                                                        <% if (employee[0].employee_dob) { %>
+                                                            <%= new Date(employee[0].employee_dob).toLocaleDateString() %>
+                                                        <% } else { %>
+                                                            Not provided
+                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <div class="profile-info-display">
+                                                    <div class="info-label">Gender</div>
+                                                    <div class="info-value" id="viewGender"><%= employee[0].gender || 'Not provided' %></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <div class="profile-info-display">
+                                                    <div class="info-label">Address</div>
+                                                    <div class="info-value" id="viewAddress"><%= employee[0].employee_address || 'Not provided' %></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <div class="profile-info-display">
+                                                    <div class="info-label">Bio/Summary</div>
+                                                    <div class="info-value" id="viewBio"><%= employee[0].summary || 'Not provided' %></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Profile Edit Mode -->
+                                    <div id="personalEdit" style="display: none;">
+                                        <div class="photo-upload-area" onclick="document.getElementById('profilePhotoInput').click()">
+                                            <div class="upload-icon">
+                                                <i class="fas fa-camera"></i>
+                                            </div>
+                                            <h5>Change Profile Photo</h5>
+                                            <p class="text-muted mb-0">Click to upload a new profile photo (JPG, PNG, Max 2MB)</p>
+                                            <input type="file" name="profile_photo" class="d-none" id="profilePhotoInput" accept="image/*" onchange="previewImage(this)">
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label required">Full Name</label>
+                                                <input type="text" name="employee_name" class="form-control" value="<%= employee[0].employee_name || '' %>" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Designation</label>
+                                                <input type="text" name="current_designation" class="form-control" value="<%= employee[0].current_designation || '' %>" placeholder="e.g., Software Developer, Intern">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label required">Email</label>
+                                                <input type="email" name="employee_email" class="form-control" value="<%= employee[0].employee_email || '' %>" required>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Phone</label>
+                                                <input type="tel" name="employee_mobile" class="form-control" value="<%= employee[0].employee_mobile || '' %>">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Date of Birth</label>
+                                                <input type="date" name="employee_dob" class="form-control" 
+                                                       value="<%= employee[0].employee_dob ? new Date(employee[0].employee_dob).toISOString().split('T')[0] : '' %>">
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Gender</label>
+                                                <select name="gender" class="form-select">
+                                                    <option value="">Select Gender</option>
+                                                    <option value="Male" <%= employee[0].gender === 'Male' ? 'selected' : '' %>>Male</option>
+                                                    <option value="Female" <%= employee[0].gender === 'Female' ? 'selected' : '' %>>Female</option>
+                                                    <option value="Other" <%= employee[0].gender === 'Other' ? 'selected' : '' %>>Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label class="form-label">Address</label>
+                                                <textarea name="employee_address" class="form-control" rows="3" placeholder="Enter your complete address"><%= employee[0].employee_address || '' %></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label class="form-label">Pincode</label>
+                                                <input type="text" name="employee_pincode" class="form-control" value="<%= employee[0].employee_pincode || '' %>">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Bio/Summary</label>
+                                            <textarea name="summary" class="form-control" rows="4" placeholder="Write a brief introduction about yourself..."><%= employee[0].summary || '' %></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Education Tab -->
+                                <div class="tab-pane fade" id="education">
+                                    <h4 class="section-title">Education Details</h4>
+                                    
+                                    <!-- Education View Mode -->
+                                    <div id="educationView">
+                                        <% if (employee[0].education && employee[0].education.degree) { %>
+                                            <div class="education-item">
+                                                <h5><%= employee[0].education.degree %></h5>
+                                                <p class="mb-1"><strong>Institution:</strong> <%= employee[0].education.institution || 'Not provided' %></p>
+                                                <p class="mb-1"><strong>Field of Study:</strong> <%= employee[0].education.field_of_study || 'Not provided' %></p>
+                                                <p class="mb-1"><strong>CGPA/Percentage:</strong> <%= employee[0].education.cgpa_percentage || 'Not provided' %></p>
+                                                <p class="mb-1">
+                                                    <strong>Duration:</strong> 
+                                                    <% if (employee[0].education.start_date) { %>
+                                                        <%= new Date(employee[0].education.start_date).toLocaleDateString() %>
+                                                    <% } else { %>
+                                                        Start date not provided
+                                                    <% } %>
+                                                    - 
+                                                    <% if (employee[0].education.end_date) { %>
+                                                        <%= new Date(employee[0].education.end_date).toLocaleDateString() %>
+                                                    <% } else { %>
+                                                        End date not provided
+                                                    <% } %>
+                                                </p>
+                                                <p class="mb-0"><strong>Description:</strong> <%= employee[0].education.education_description || 'No description provided' %></p>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="empty-state">
+                                                <i class="fas fa-graduation-cap"></i>
+                                                <h5>No Education Added</h5>
+                                                <p class="text-muted">Add your educational background to showcase your qualifications.</p>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                    
+                                    <!-- Education Edit Mode -->
+                                    <div id="educationEdit" style="display: none;">
+                                        <div class="education-item">
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label required">Degree</label>
+                                                    <input type="text" name="degree" class="form-control" 
+                                                           value="<%= employee[0].education ? employee[0].education.degree : '' %>" required>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Field of Study</label>
+                                                    <input type="text" name="field_of_study" class="form-control" 
+                                                           value="<%= employee[0].education ? employee[0].education.field_of_study : '' %>">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label required">Institution</label>
+                                                    <input type="text" name="institution" class="form-control" 
+                                                           value="<%= employee[0].education ? employee[0].education.institution : '' %>" required>
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">CGPA/Percentage</label>
+                                                    <input type="text" name="cgpa" class="form-control" 
+                                                           value="<%= employee[0].education ? employee[0].education.cgpa_percentage : '' %>">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">Start Date</label>
+                                                    <input type="date" name="education_start" class="form-control"
+                                                           value="<%= employee[0].education && employee[0].education.start_date 
+                                                                   ? new Date(employee[0].education.start_date).toISOString().split('T')[0] 
+                                                                   : '' %>">
+                                                </div>
+                                                <div class="col-md-6 mb-3">
+                                                    <label class="form-label">End Date</label>
+                                                    <input type="date" name="education_end" class="form-control"
+                                                           value="<%= employee[0].education && employee[0].education.end_date 
+                                                                   ? new Date(employee[0].education.end_date).toISOString().split('T')[0] 
+                                                                   : '' %>">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Description</label>
+                                                <textarea name="education_description" class="form-control" rows="3"><%= employee[0].education ? employee[0].education.education_description : '' %></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Skills Tab -->
+                                <div class="tab-pane fade" id="skills">
+                                    <h4 class="section-title">Technical Skills</h4>
+                                    
+                                    <!-- Skills View Mode -->
+                                    <div id="skillsView">
+                                        <% if (employee[0].skills && employee[0].skills.length > 0) { %>
+                                            <div class="mb-3">
+                                                <div class="info-label mb-2">Skills</div>
+                                                <div>
+                                                    <% for (let i = 0; i < employee[0].skills.length; i++) { %>
+                                                        <span class="skill-tag"><%= employee[0].skills[i] %></span>
+                                                    <% } %>
+                                                </div>
+                                            </div>
+                                        <% } else { %>
+                                            <div class="empty-state">
+                                                <i class="fas fa-laptop-code"></i>
+                                                <h5>No Skills Added</h5>
+                                                <p class="text-muted">Add your technical skills to showcase your expertise.</p>
+                                            </div>
+                                        <% } %>
+                                    </div>
+                                    
+                                    <!-- Skills Edit Mode -->
+                                    <div id="skillsEdit" style="display: none;">
+                                        <div class="mb-3">
+                                            <label class="form-label">Skills</label>
+                                            <div id="programmingSkills" class="mb-3">
+                                                <% if (employee[0].skills && employee[0].skills.length > 0) { %>
+                                                    <% for (let i = 0; i < employee[0].skills.length; i++) { %>
+                                                        <span class="skill-tag">
+                                                            <%= employee[0].skills[i] %> 
+                                                            <i class="fas fa-times" onclick="removeSkill(this)"></i>
+                                                        </span>
+                                                    <% } %>
+                                                <% } %>
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="newProgrammingSkill" placeholder="Add a skill">
+                                                <button class="btn btn-primary" type="button" onclick="addSkill()">
+                                                    <i class="fas fa-plus"></i> Add
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Projects Tab -->
+                                <div class="tab-pane fade" id="projects">
+                                    <h4 class="section-title">Projects</h4>
+                                    
+                                    <!-- Projects View Mode -->
+                                    <div id="projectsView">
+                                        <div id="projectsListView">
+                                            <% if (employee[0].projects && employee[0].projects.length > 0) { %>
+                                                <% employee[0].projects.forEach(function(project) { %>
+                                                    <div class="project-item">
+                                                        <h5><%= project.project_title %></h5>
+                                                        <p class="mb-1"><strong>Technologies:</strong> <%= project.technologies_used || 'Not specified' %></p>
+                                                        <p class="mb-1"><strong>Duration:</strong> 
+                                                            <%= project.start_date ? new Date(project.start_date).toLocaleDateString() : 'Not specified' %> - 
+                                                            <%= project.end_date ? new Date(project.end_date).toLocaleDateString() : 'Not specified' %>
+                                                        </p>
+                                                        <p class="mb-0"><%= project.project_description || 'No description provided' %></p>
+                                                        <% if (project.github_link) { %>
+                                                            <p class="mt-2 mb-0">
+                                                                <a href="<%= project.github_link %>" target="_blank">
+                                                                    <i class="fab fa-github me-1"></i>GitHub Repository
+                                                                </a>
+                                                            </p>
+                                                        <% } %>
+                                                    </div>
+                                                <% }); %>
+                                            <% } else { %>
+                                                <div class="empty-state">
+                                                    <i class="fas fa-project-diagram"></i>
+                                                    <h5>No Projects Added</h5>
+                                                    <p class="text-muted">Add your projects to showcase your work and achievements.</p>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Projects Edit Mode -->
+                                    <div id="projectsEdit" style="display: none;">
+                                        <div id="projectsEditContainer">
+                                            <% if (employee[0].projects && employee[0].projects.length > 0) { %>
+                                                <% employee[0].projects.forEach(function(project, index) { %>
+                                                    <div class="project-item">
+                                                        <button type="button" class="delete-btn" onclick="removeProjectForm(this, <%= project.project_id || index %>)">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                        <div class="mb-3">
+                                                            <label class="form-label required">Project Title</label>
+                                                            <input type="text" class="form-control project-title" value="<%= project.project_title %>" required>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Project Description</label>
+                                                            <textarea class="form-control project-description" rows="3"><%= project.project_description || '' %></textarea>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">Technologies Used</label>
+                                                                <input type="text" class="form-control project-technologies" value="<%= project.technologies_used || '' %>">
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">GitHub Link</label>
+                                                                <input type="url" class="form-control project-github" value="<%= project.github_link || '' %>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">Start Date</label>
+                                                                <input type="date" class="form-control project-start" value="<%= project.start_date ? new Date(project.start_date).toISOString().split('T')[0] : '' %>">
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">End Date</label>
+                                                                <input type="date" class="form-control project-end" value="<%= project.end_date ? new Date(project.end_date).toISOString().split('T')[0] : '' %>">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% }); %>
+                                            <% } %>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-primary w-100 mt-3" onclick="addProjectForm()">
+                                            <i class="fas fa-plus me-2"></i>Add Project
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Experience Tab -->
+                                <div class="tab-pane fade" id="experience">
+                                    <h4 class="section-title">Experience & Internships</h4>
+                                    
+                                    <!-- Experience View Mode -->
+                                    <div id="experienceView">
+                                        <div id="experienceListView">
+                                            <% if (employee[0].experience && employee[0].experience.length > 0) { %>
+                                                <% employee[0].experience.forEach(function(exp) { %>
+                                                    <div class="experience-item">
+                                                        <h5><%= exp.position %></h5>
+                                                        <p class="mb-1"><strong>Company:</strong> <%= exp.company || 'Not specified' %></p>
+                                                        <p class="mb-1"><strong>Duration:</strong> 
+                                                            <%= exp.start_date ? new Date(exp.start_date).toLocaleDateString() : 'Not specified' %> - 
+                                                            <%= exp.end_date ? new Date(exp.end_date).toLocaleDateString() : 'Not specified' %>
+                                                        </p>
+                                                        <p class="mb-0"><%= exp.description || 'No description provided' %></p>
+                                                    </div>
+                                                <% }); %>
+                                            <% } else { %>
+                                                <div class="empty-state">
+                                                    <i class="fas fa-briefcase"></i>
+                                                    <h5>No Experience Added</h5>
+                                                    <p class="text-muted">Add your work experience and internships to showcase your professional background.</p>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Experience Edit Mode -->
+                                    <div id="experienceEdit" style="display: none;">
+                                        <div id="experienceEditContainer">
+                                            <% if (employee[0].experience && employee[0].experience.length > 0) { %>
+                                                <% employee[0].experience.forEach(function(exp, index) { %>
+                                                    <div class="experience-item">
+                                                        <button type="button" class="delete-btn" onclick="removeExperienceForm(this, <%= exp.experience_id || index %>)">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">Position</label>
+                                                                <input type="text" class="form-control experience-position" value="<%= exp.position %>">
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">Company</label>
+                                                                <input type="text" class="form-control experience-company" value="<%= exp.company || '' %>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">Start Date</label>
+                                                                <input type="date" class="form-control experience-start" value="<%= exp.start_date ? new Date(exp.start_date).toISOString().split('T')[0] : '' %>">
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label class="form-label">End Date</label>
+                                                                <input type="date" class="form-control experience-end" value="<%= exp.end_date ? new Date(exp.end_date).toISOString().split('T')[0] : '' %>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Description</label>
+                                                            <textarea class="form-control experience-description" rows="3"><%= exp.description || '' %></textarea>
+                                                        </div>
+                                                    </div>
+                                                <% }); %>
+                                            <% } %>
+                                        </div>
+                                        <button type="button" class="btn btn-outline-primary w-100 mt-3" onclick="addExperienceForm()">
+                                            <i class="fas fa-plus me-2"></i>Add Experience
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Documents Tab -->
+                                <div class="tab-pane fade" id="documents">
+                                    <h4 class="section-title">Documents</h4>
+                                    
+                                    <!-- Documents View Mode -->
+                                    <div id="documentsView">
+                                        <div class="document-item">
+                                            <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <div class="">
+                                                    <div class="label">Portfolio Link</div>
+                                                    <a href="<%= employee[0].education.portfolio_link || 'Not provided' %>" target="_blank" class="btn btn-sm btn-info mt-2 text-white"><b><i class="fa-solid fa-user-tie"></i> portfolio_link</b></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <div class="">
+                                                    <div class="label">LinkedIn Profile</div>
+                                                    <a href="<%= employee[0].education.linkedin_profile || 'Not provided' %>" target="_blank" class="btn btn-sm btn-info mt-2 text-white"><b><i class="fa-brands fa-linkedin"></i> linkedin_profile</b></a>
+                                                </div>
+                                            </div>
+                                        </div><br>
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <div class="">
+                                                    <div class="label">GitHub Profile</div>
+                                                    <a href="<%= employee[0].education.github_profile || 'Not provided' %>" target="_blank" class="btn btn-sm btn-info mt-2 text-white"><b><i class="fa-brands fa-github"></i> github_profile</b></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mb-3">
+                                                <div class="">
+                                                    <div class="label">Resume / Cv </div>
+
+                                                    <a href="<%= employee[0].employee_resume || 'Not provided' %>" target="_blank" download class="btn btn-sm btn-info mt-2 text-white"><b><i class="fa-solid fa-file"></i> Download CV</b></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                   </div>
+                                </div>
+                            <!-- </div> -->
+                                    
+                                    <!-- Documents Edit Mode -->
+                                    <div id="documentsEdit" style="display: none;">
+                                        <div class="mb-3">
+                                            <label class="form-label">Upload Resume/CV</label>
+                                            <input type="file" name="resume" class="form-control" accept=".pdf,.doc,.docx">
+                                            <div class="form-text">Supported formats: PDF, DOC, DOCX (Max 5MB)</div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Upload Transcript</label>
+                                            <input type="file" name="transcript" class="form-control" accept=".pdf,.jpg,.png">
+                                            <div class="form-text">Upload your academic transcript (PDF or image)</div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">Portfolio Link</label>
+                                            <input type="url" name="portfolio" class="form-control" placeholder="https://yourportfolio.com">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">LinkedIn Profile</label>
+                                            <input type="url" name="linkedin" class="form-control" placeholder="https://linkedin.com/in/yourprofile">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label class="form-label">GitHub Profile</label>
+                                            <input type="url" name="github" class="form-control" placeholder="https://github.com/yourusername">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions (Edit Mode Only) -->
+                            <div class="row mt-4" id="formActions" style="display: none;">
+                                <div class="col-12 text-center">
+                                    <button type="submit" class="action-btn me-3">
+                                        <i class="fas fa-save me-2"></i>Save Changes
+                                    </button>
+                                    <button type="button" class="btn-outline-custom" id="cancelEditBtn">
+                                        <i class="fas fa-times me-2"></i>Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize data from backend
+        let projects = <%- JSON.stringify(employee[0].projects || []) %>;
+        let experience = <%- JSON.stringify(employee[0].experience || []) %>;
+
+        // Toggle between view and edit modes
+        const toggleEditBtn = document.getElementById('toggleEditBtn');
+        const cancelEditBtn = document.getElementById('cancelEditBtn');
+        const formActions = document.getElementById('formActions');
+        const successAlert = document.getElementById('successAlert');
+        
+        // View and edit elements for each tab
+        const viewElements = document.querySelectorAll('[id$="View"]');
+        const editElements = document.querySelectorAll('[id$="Edit"]');
+        
+        toggleEditBtn.addEventListener('click', function() {
+            // Switch to edit mode
+            toggleEditBtn.style.display = 'none';
+            formActions.style.display = 'block';
+            
+            // Hide all view elements and show edit elements
+            viewElements.forEach(el => el.style.display = 'none');
+            editElements.forEach(el => el.style.display = 'block');
+            
+            // Initialize dynamic forms
+            initializeProjectsEdit();
+            initializeExperienceEdit();
+        });
+        
+        cancelEditBtn.addEventListener('click', function() {
+            // Switch back to view mode
+            toggleEditBtn.style.display = 'block';
+            formActions.style.display = 'none';
+            
+            // Hide all edit elements and show view elements
+            viewElements.forEach(el => el.style.display = 'block');
+            editElements.forEach(el => el.style.display = 'none');
+        });
+        
+        // Profile photo preview
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePreview').src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Skills management
+        function addSkill() {
+            const input = document.getElementById('newProgrammingSkill');
+            const skill = input.value.trim();
+            if(skill === '') return;
+
+            const container = document.getElementById('programmingSkills');
+
+            // Create new skill tag
+            const span = document.createElement('span');
+            span.className = 'skill-tag';
+            span.innerHTML = skill + ' <i class="fas fa-times" onclick="removeSkill(this)"></i>';
+            container.appendChild(span);
+
+            input.value = '';
+            updateSkillsInput();
+        }
+
+        function removeSkill(elem) {
+            elem.parentElement.remove();
+            updateSkillsInput();
+        }
+
+        function updateSkillsInput() {
+            const container = document.getElementById('programmingSkills');
+            const skills = Array.from(container.getElementsByClassName('skill-tag'))
+                                .map(span => span.childNodes[0].nodeValue.trim());
+            document.getElementById('skillsInput').value = skills.join(',');
+        }
+
+        // Projects Management
+        function initializeProjectsEdit() {
+            const container = document.getElementById('projectsEditContainer');
+            // Forms are already rendered from backend, just update data
+            updateProjectsData();
+        }
+
+        function addProjectForm() {
+            const container = document.getElementById('projectsEditContainer');
+            const projectId = Date.now();
+            
+            const projectForm = document.createElement('div');
+            projectForm.className = 'project-item';
+            projectForm.innerHTML = `
+                <button type="button" class="delete-btn" onclick="removeProjectForm(this, ${projectId})">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="mb-3">
+                    <label class="form-label required">Project Title</label>
+                    <input type="text" class="form-control project-title" value="" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Project Description</label>
+                    <textarea class="form-control project-description" rows="3"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Technologies Used</label>
+                        <input type="text" class="form-control project-technologies" value="">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">GitHub Link</label>
+                        <input type="url" class="form-control project-github" value="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Start Date</label>
+                        <input type="date" class="form-control project-start" value="">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">End Date</label>
+                        <input type="date" class="form-control project-end" value="">
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners to update data on change
+            const inputs = projectForm.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('change', updateProjectsData);
+            });
+            
+            container.appendChild(projectForm);
+            
+            projects.push({
+                project_id: projectId,
+                project_title: '',
+                project_description: '',
+                technologies_used: '',
+                github_link: '',
+                start_date: '',
+                end_date: ''
+            });
+            
+            updateProjectsData();
+        }
+
+        function removeProjectForm(button, projectId) {
+            const projectForm = button.closest('.project-item');
+            projectForm.remove();
+            
+            // Remove from projects array
+            projects = projects.filter(project => project.project_id !== projectId);
+            updateProjectsData();
+        }
+
+        function updateProjectsData() {
+            const projectForms = document.querySelectorAll('#projectsEditContainer .project-item');
+            const projectsData = [];
+            
+            projectForms.forEach((form, index) => {
+                const project = {
+                    project_id: projects[index]?.project_id || Date.now(),
+                    project_title: form.querySelector('.project-title').value,
+                    project_description: form.querySelector('.project-description').value,
+                    technologies_used: form.querySelector('.project-technologies').value,
+                    github_link: form.querySelector('.project-github').value,
+                    start_date: form.querySelector('.project-start').value,
+                    end_date: form.querySelector('.project-end').value
+                };
+                projectsData.push(project);
+            });
+            
+            document.getElementById('projectsDataInput').value = JSON.stringify(projectsData);
+        }
+
+        // Experience Management
+        function initializeExperienceEdit() {
+            const container = document.getElementById('experienceEditContainer');
+            // Forms are already rendered from backend, just update data
+            updateExperienceData();
+        }
+
+        function addExperienceForm() {
+            const container = document.getElementById('experienceEditContainer');
+            const expId = Date.now();
+            
+            const expForm = document.createElement('div');
+            expForm.className = 'experience-item';
+            expForm.innerHTML = `
+                <button type="button" class="delete-btn" onclick="removeExperienceForm(this, ${expId})">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Position</label>
+                        <input type="text" class="form-control experience-position" value="">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Company</label>
+                        <input type="text" class="form-control experience-company" value="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Start Date</label>
+                        <input type="date" class="form-control experience-start" value="">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">End Date</label>
+                        <input type="date" class="form-control experience-end" value="">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control experience-description" rows="3"></textarea>
+                </div>
+            `;
+            
+            // Add event listeners to update data on change
+            const inputs = expForm.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('change', updateExperienceData);
+            });
+            
+            container.appendChild(expForm);
+            
+            experience.push({
+                experience_id: expId,
+                position: '',
+                company: '',
+                start_date: '',
+                end_date: '',
+                description: ''
+            });
+            
+            updateExperienceData();
+        }
+
+        function removeExperienceForm(button, expId) {
+            const expForm = button.closest('.experience-item');
+            expForm.remove();
+            
+            // Remove from experience array
+            experience = experience.filter(exp => exp.experience_id !== expId);
+            updateExperienceData();
+        }
+
+        function updateExperienceData() {
+            const expForms = document.querySelectorAll('#experienceEditContainer .experience-item');
+            const experienceData = [];
+            
+            expForms.forEach((form, index) => {
+                const exp = {
+                    experience_id: experience[index]?.experience_id || Date.now(),
+                    position: form.querySelector('.experience-position').value,
+                    company: form.querySelector('.experience-company').value,
+                    start_date: form.querySelector('.experience-start').value,
+                    end_date: form.querySelector('.experience-end').value,
+                    description: form.querySelector('.experience-description').value
+                };
+                experienceData.push(exp);
+            });
+            
+            document.getElementById('experienceDataInput').value = JSON.stringify(experienceData);
+        }
+
+        // Enter key for adding skills
+        document.getElementById('newProgrammingSkill').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addSkill();
+            }
+        });
+
+        // Form validation and submission
+        (function() {
+            const form = document.getElementById('profileForm');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const MAX_PHOTO = 2 * 1024 * 1024; // 2MB
+            const MAX_DOC = 5 * 1024 * 1024; // 5MB
+
+            async function handleSubmit(e) {
+                e.preventDefault();
+
+                // Update dynamic inputs
+                updateProjectsData();
+                updateExperienceData();
+                updateSkillsInput();
+
+                // Required-field validation
+                const requiredFields = form.querySelectorAll('[required]');
+                let isValid = true;
+                requiredFields.forEach(field => {
+                    if (!field.value || !field.value.toString().trim()) {
+                        field.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+                if (!isValid) {
+                    alert('Please fill in all required fields marked with *');
+                    return;
+                }
+
+                // File size checks
+                const photoInput = document.getElementById('profilePhotoInput');
+                if (photoInput && photoInput.files[0] && photoInput.files[0].size > MAX_PHOTO) {
+                    alert('Profile photo must be less than 2MB');
+                    return;
+                }
+                const resume = form.querySelector('input[name="resume"]');
+                if (resume && resume.files[0] && resume.files[0].size > MAX_DOC) {
+                    alert('Resume must be less than 5MB');
+                    return;
+                }
+                const transcript = form.querySelector('input[name="transcript"]');
+                if (transcript && transcript.files[0] && transcript.files[0].size > MAX_DOC) {
+                    alert('Transcript must be less than 5MB');
+                    return;
+                }
+
+                // Disable submit to avoid double submits / premature aborts
+                if (submitBtn) submitBtn.disabled = true;
+
+                try {
+                    const url = form.getAttribute('action') || window.location.href;
+                    const formData = new FormData(form);
+
+                    // Use fetch so browser sets proper multipart boundaries.
+                    const res = await fetch(url, {
+                        method: 'POST',
+                        body: formData,
+                        credentials: 'same-origin',
+                    });
+
+                    if (!res.ok) {
+                        const text = await res.text().catch(() => '');
+                        console.error('Upload failed', res.status, text);
+                        // Surface server message to user for debugging
+                        alert('Failed to save profile. Server returned ' + res.status + (text ? (': ' + text) : ''));
+                    } else {
+                         // Show success and switch back to view mode
+                         const successAlert = document.getElementById('successAlert');
+                         if (successAlert) successAlert.style.display = 'block';
+                         toggleEditBtn.style.display = 'block';
+                         formActions.style.display = 'none';
+                         viewElements.forEach(el => el.style.display = 'block');
+                         editElements.forEach(el => el.style.display = 'none');
+                     }
+                } catch (err) {
+                    console.error('Submit error', err);
+                    alert('An error occurred while submitting the form. Please try again.');
+                } finally {
+                    if (submitBtn) submitBtn.disabled = false;
+                }
+            }
+
+            form.addEventListener('submit', handleSubmit);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<%- include('navbar.ejs') %>
+
+<div class="main-content">
+    <div class="col-md-12">
+        <h2 class="fw-bold text-primary mb-4">List Jobs</h2>
+    </div>
+    <div class="col-md-12 card card-body p-4 shadow-lg rounded">
+        <table class="table table-hover text-center table-striped align-middle rounded">
+            <thead>
+                <tr>
+                <th>Sr.No</th>
+                <th>Action</th>
+                <th>Job Tittle</th>
+                <th>Job Type</th>
+                <th>Experience</th>
+                <th>Job Status</th>
+                <th>Applicants</th>
+                </tr>
+            </thead>
+            <tbody>
+  <% for (var i = 0; i < result.length; i++) { 
+       var row = result[i]; 
+  %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td>
+        <a href="/company/delete_job/<%= row.job_id %>" class="btn btn-sm btn-outline-danger">
+          <i class="fa-solid fa-trash"></i>
+        </a>
+        <a href="/company/edit_job/<%= row.job_id %>" class="btn btn-sm btn-outline-warning">
+          <i class="fa-solid fa-pen"></i>
+        </a>
+      </td>
+      <td><%= row.job_title %></td>
+      <td><%= row.job_type %></td>
+      <td><%= row.experience_min %> - <%= row.experience_max %> Year</td>
+      <td><%= row.status %></td>
+      <td>
+        <a href="/company/view_applicants/<%= row.job_id %>" class="btn btn-sm btn-outline-info">
+          <%= row.applicant_count %> Applicants
+        </a>
+      </td>
+    </tr>
+  <% } %>
+</tbody>
+
+        </table>
+    </div>
+</div>
+
+<%- include('footer.ejs') %>
+
+

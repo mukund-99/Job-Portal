@@ -1,0 +1,57 @@
+<%- include('navbar.ejs') %>
+<div class="main-content">
+    <div class="col-md-12">
+        <h2 class="fw-bold text-primary mb-4">Applicants</h2>
+    </div>
+    <div class="col-md-12 card card-body p-4 shadow-lg rounded">
+        <table class="table table-hover text-center table-striped align-middle rounded">
+            <thead>
+                <tr>
+                <th>Sr.No</th>
+                <th>Applicant Name</th>
+                <th>Applicant Email</th>
+                <th>Applicant Phone</th>
+                <th>Job Title</th>
+                <th>Applicant Resume</th>
+                <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+  <% for (var i = 0; i < result.length; i++) { 
+       var row = result[i]; 
+  %>
+    <tr>
+      <td><%= i + 1 %></td>
+      <td><%= row.employee_name %></td>
+      <td><%= row.employee_email %></td>
+      <td><%= row.employee_mobile %></td>
+      <td><%= row.job_title %></td>
+      <td>
+        <a href="/resume/<%= row.resume_file %>" class="btn btn-sm btn-outline-info" target="_blank">
+         <i class="fa-regular fa-file"></i>
+        </a>
+      </td>
+      <td>
+        <% if(row.application_status === 'pending') { %>
+        <a href="/company/shortlist/<%= row.application_id %>" class="btn btn-sm btn-outline-success">
+          <i class="fa-solid fa-check"></i> Shortlist
+        </a>
+        <a href="/company/reject/<%= row.application_id %>" class="btn btn-sm btn-outline-danger">
+          <i class="fa-solid fa-xmark"></i> Reject
+        </a>
+       <% } else if(row.application_status === 'Shortlisted') { %>
+        <a class="btn btn-success btn-sm"> <i class="fa-solid fa-check"></i> Shortlisted</a>
+       <% } else if(row.application_status === 'Rejected') { %>
+        <a class="btn btn-danger btn-sm"> <i class="fa-solid fa-xmark"></i>  Rejected</a>
+       <% } %>
+      </td>
+    </tr>
+  <% } %>
+</tbody>
+        </table>
+    </div>
+</div>
+
+<%- include('footer.ejs') %>
+
+

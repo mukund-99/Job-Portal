@@ -1,0 +1,112 @@
+<%- include('navbar.ejs') %>
+
+
+<style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      display: flex;
+      min-height: 100vh;
+      position: fixed;
+    }
+
+    
+
+    .card {
+      border: none;
+      border-radius: 15px;
+      /* box-shadow: 0 6px 50px rgba(0, 0, 0, 0.1); */
+      padding: 30px;
+    }
+
+    .form-label {
+      font-weight: 500;
+    }
+
+    .btn-primary {
+      padding: 10px 25px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  </style>
+
+
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- <div class="col-md-6"> -->
+        <div class="col-md-12">
+    <div class="">
+    <h2 class="fw-bold text-primary mb-4">Add New Job</h2>
+
+    <div class="card shadow-lg">
+      <form action="/company/save_job" method="POST">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label">Job Title</label>
+            <input type="text" name="job_title" class="form-control" placeholder="e.g. Frontend Developer" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Job Type</label>
+            <select name="job_type" class="form-select" required>
+              <option value="">Select Type</option>
+              <option>Full Time</option>
+              <option>Part Time</option>
+              <option>Internship</option>
+              <option>Remote</option>
+              <option>Contract</option>
+              <option>Temporary</option>
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Enter Minimum Experience</label>
+            <input type="number" name="experience_min" class="form-control" placeholder=" Minimum Experience" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Enter Maximum Experience</label>
+            <input type="number" name="experience_max" class="form-control" placeholder="Maximum Experience" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Job Vacancies</label>
+            <input type="number" name="vacancies" class="form-control" placeholder="Job Vacancies" required>
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Reference Link</label>
+            <input type="text" name="reference_link" class="form-control" placeholder="e.g. xyz.com" >
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Required Skills</label>
+            <input type="text" name="skills" class="form-control" placeholder="e.g. HTML, CSS, JavaScript, React" required>
+          </div>
+
+          <div class="col-12">
+            <label class="form-label">Job Description</label>
+            <textarea name="job_description" class="form-control" rows="3" placeholder="Write a detailed job description..." required></textarea>
+          </div>
+
+          
+
+         
+
+          <div class="col-12 text-center mt-3 mb-0 pb-0">
+            <a href="" class="btn btn-outline-secondary ms-5"><i class="fa-solid fa-arrow-left"></i> Cancel </a> 
+            <button type="submit" class="btn btn-primary">Add Job</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+    <!-- </div> -->
+  </div>
+  
+  
+
+ <%- include('footer.ejs') %>

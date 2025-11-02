@@ -1,0 +1,312 @@
+<%- include('navbar.ejs') %>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Glass Navbar -->
+    <nav class="glass-navbar">
+      <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center w-100">
+          <h4 class="mb-0 fw-bold">Company Dashboard</h4>
+          <div class="user-profile">
+            <div class="user-info text-end me-3">
+              <h6 class="mb-0"><%= result[0].hr_name %></h6>
+              <p class="mb-0"><%= result[0].hr_designation %></p>
+            </div>
+            <div class="user-avatar"></div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <div class="hero-content">
+            <h1>Welcome back, <%= result[0].hr_name %>! 👋</h1>
+              <input type="text" readonly value="<%= result[0].company_id %>">
+
+            <p class="fs-5 mb-0">Your recruitment dashboard is looking great today. You have 24 new applications to review.</p>
+            
+            <div class="hero-stats">
+              <div class="hero-stat">
+                <div class="hero-stat-icon">
+                  <i class="bi bi-briefcase"></i>
+                </div>
+                <div>
+                  <div class="fs-4 fw-bold">12</div>
+                  <div>Active Jobs</div>
+                </div>
+              </div>
+              <div class="hero-stat">
+                <div class="hero-stat-icon">
+                  <i class="bi bi-people"></i>
+                </div>
+                <div>
+                  <div class="fs-4 fw-bold">156</div>
+                  <div>Total Candidates</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 text-end">
+          <a href="company/post_job" class="btn btn-outline-light btn-lg fw-bold "><i class="bi bi-plus-circle me-2"></i> POST JOB</a>
+          <!-- <a > -->
+          <!-- <a href="/post_job" class="btn btn-light btn-lg fw-bold ">
+            Post New Job
+          </a> -->
+          <!-- </a> -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-header">
+          <div>
+            <div class="stat-number text-primary">2,847</div>
+            <div class="stat-label">Profile Views</div>
+          </div>
+          <div class="stat-icon bg-primary-gradient">
+            <i class="bi bi-eye"></i>
+          </div>
+        </div>
+        <div class="stat-trend trend-up">
+          <i class="bi bi-arrow-up"></i> 12.5% increase
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div>
+            <div class="stat-number text-success">156</div>
+            <div class="stat-label">Applications</div>
+          </div>
+          <div class="stat-icon bg-success-gradient">
+            <i class="bi bi-person-check"></i>
+          </div>
+        </div>
+        <div class="stat-trend trend-up">
+          <i class="bi bi-arrow-up"></i> 8.2% increase
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div>
+            <div class="stat-number text-warning">24</div>
+            <div class="stat-label">Pending Reviews</div>
+          </div>
+          <div class="stat-icon bg-warning-gradient">
+            <i class="bi bi-clock"></i>
+          </div>
+        </div>
+        <div class="stat-trend trend-down">
+          <i class="bi bi-arrow-down"></i> 3.1% decrease
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <div>
+            <div class="stat-number text-danger">3</div>
+            <div class="stat-label">Expiring Jobs</div>
+          </div>
+          <div class="stat-icon bg-danger-gradient">
+            <i class="bi bi-calendar-x"></i>
+          </div>
+        </div>
+        <div class="stat-trend">
+          Renew in 2 days
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <a href="#" class="action-card">
+        <div class="action-content">
+          <div class="action-icon">
+            <i class="bi bi-plus-lg"></i>
+          </div>
+          <div class="action-title">Post New Job</div>
+          <div class="action-desc">Create and publish job opening</div>
+        </div>
+      </a>
+
+      <a href="#" class="action-card">
+        <div class="action-content">
+          <div class="action-icon">
+            <i class="bi bi-search"></i>
+          </div>
+          <div class="action-title">Find Candidates</div>
+          <div class="action-desc">Search talent database</div>
+        </div>
+      </a>
+
+      <a href="#" class="action-card">
+        <div class="action-content">
+          <div class="action-icon">
+            <i class="bi bi-calendar-plus"></i>
+          </div>
+          <div class="action-title">Schedule Interview</div>
+          <div class="action-desc">Arrange meetings</div>
+        </div>
+      </a>
+
+      <a href="#" class="action-card">
+        <div class="action-content">
+          <div class="action-icon">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <div class="action-title">View Analytics</div>
+          <div class="action-desc">Performance reports</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+      <!-- Left Column -->
+      <div>
+        <!-- Recent Applicants -->
+        <div class="glass-card mb-4">
+          <div class="card-header">
+            <h5>Recent Applicants</h5>
+            <a href="#" class="btn btn-sm btn-primary">View All</a>
+          </div>
+          <div class="table-responsive">
+            <table class="applicant-table">
+              <thead>
+                <tr>
+                  <th>Candidate</th>
+                  <th>Position</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="applicant-avatar">RK</div>
+                      <div>
+                        <div class="fw-bold">Ravi Kumar</div>
+                        <small class="text-muted">Frontend Developer</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Senior Frontend Developer</td>
+                  <td><span class="status-badge bg-success-light">Shortlisted</span></td>
+                  <td>Oct 5, 2025</td>
+                  <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="applicant-avatar">PS</div>
+                      <div>
+                        <div class="fw-bold">Priya Sharma</div>
+                        <small class="text-muted">UI/UX Designer</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>UI/UX Designer</td>
+                  <td><span class="status-badge bg-warning-light">Pending</span></td>
+                  <td>Oct 4, 2025</td>
+                  <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="applicant-avatar">AM</div>
+                      <div>
+                        <div class="fw-bold">Arjun Mehta</div>
+                        <small class="text-muted">Backend Developer</small>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Backend Developer</td>
+                  <td><span class="status-badge bg-danger-light">Rejected</span></td>
+                  <td>Oct 2, 2025</td>
+                  <td><button class="btn btn-sm btn-outline-primary">View</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column -->
+      <div>
+        <!-- Recent Activity -->
+        <div class="glass-card mb-4">
+          <div class="card-header">
+            <h5>Recent Activity</h5>
+          </div>
+          <div class="activity-timeline">
+            <div class="activity-item">
+              <div class="activity-time">2 hours ago</div>
+              <div class="activity-content">
+                <div class="fw-bold mb-1">New Application</div>
+                <div class="text-muted">Ravi Kumar applied for Senior Developer</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-time">5 hours ago</div>
+              <div class="activity-content">
+                <div class="fw-bold mb-1">Job Published</div>
+                <div class="text-muted">Product Manager position is now live</div>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-time">1 day ago</div>
+              <div class="activity-content">
+                <div class="fw-bold mb-1">Interview Scheduled</div>
+                <div class="text-muted">Technical interview with Priya Sharma</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Progress -->
+        <!-- <div class="glass-card">
+          <div class="card-header">
+            <h5>Job Progress</h5>
+          </div>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Frontend Developer</span>
+              <span>85%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-gradient-1" style="width: 85%"></div>
+            </div>
+          </div>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>UI/UX Designer</span>
+              <span>60%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-gradient-2" style="width: 60%"></div>
+            </div>
+          </div>
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Backend Developer</span>
+              <span>30%</span>
+            </div>
+            <div class="progress">
+              <div class="progress-bar bg-gradient-3" style="width: 30%"></div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+ <%- include('footer.ejs') %>

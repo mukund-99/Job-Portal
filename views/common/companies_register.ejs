@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Portal | CareerConnect</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --error: #ef4444;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .left-panel {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .right-panel {
+            flex: 1.2;
+            padding: 50px;
+            position: relative;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .left-panel h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .left-panel p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .benefits {
+            list-style: none;
+            margin-top: 30px;
+        }
+
+        .benefits li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .benefits i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        .form-header {
+            margin-bottom: 30px;
+        }
+
+        .form-header h2 {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .form-header p {
+            color: var(--gray);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .input-with-icon {
+            position: relative;
+        }
+
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .form-footer {
+            margin-top: 20px;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .progress-bar {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .progress-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-step.active .step-number {
+            background: var(--primary);
+            color: white;
+        }
+
+        .progress-step.active:not(:last-child):after {
+            background: var(--primary);
+        }
+
+        .step-name {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .progress-step.active .step-name {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: #f0f5ff;
+        }
+
+        .password-strength {
+            height: 5px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .password-requirements {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .requirement i {
+            margin-right: 5px;
+            font-size: 0.7rem;
+        }
+
+        .requirement.met {
+            color: var(--success);
+        }
+
+        .requirement.unmet {
+            color: var(--gray);
+        }
+
+        /* Sign In Form Styles */
+        .signin-form {
+            display: none;
+        }
+
+        .signin-form.active {
+            display: block;
+        }
+
+        .registration-form.active {
+            display: block;
+        }
+
+        .registration-form {
+            display: none;
+        }
+
+        .form-toggle {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .toggle-option {
+            flex: 1;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .toggle-option.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            width: auto;
+            margin-right: 8px;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .demo-accounts {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .demo-accounts h3 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            color: var(--dark);
+        }
+
+        .demo-account {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .demo-account:last-child {
+            margin-bottom: 0;
+        }
+
+        .demo-account strong {
+            color: var(--primary);
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .left-panel {
+                padding: 30px;
+            }
+            
+            .right-panel {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .left-panel, .right-panel {
+                padding: 20px;
+            }
+            
+            .left-panel h1 {
+                font-size: 2rem;
+            }
+            
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .btn-outline, .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel - Information -->
+        <div class="left-panel">
+            <div class="logo">
+                <i class="fas fa-briefcase"></i>
+                CareerConnect
+            </div>
+            <h1>Find Your Perfect Talent Match</h1>
+            <p>Join thousands of employers who have found the perfect candidates through our platform.</p>
+            
+            <ul class="benefits">
+                <li><i class="fas fa-check-circle"></i> Access to thousands of qualified candidates</li>
+                <li><i class="fas fa-check-circle"></i> Advanced candidate matching algorithm</li>
+                <li><i class="fas fa-check-circle"></i> Easy job posting and management</li>
+                <li><i class="fas fa-check-circle"></i> Dedicated employer support</li>
+                <li><i class="fas fa-check-circle"></i> Free 30-day trial</li>
+            </ul>
+        </div>
+        
+        <!-- Right Panel - Forms -->
+        <div class="right-panel">
+            <!-- Form Toggle -->
+            <div class="form-toggle">
+                <div class="toggle-option active" id="signinToggle">Sign In</div>
+                <div class="toggle-option" id="registerToggle">Register</div>
+            </div>
+            
+            <!-- Sign In Form -->
+            <form class="signin-form active" id="signinForm" action="/company_login" method="post">
+                <div class="form-header">
+                    <h2>Welcome Back</h2>
+                    <p>Sign in to your company account</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signinEmail">Email Address</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signinEmail" name="hrEmail" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signinPassword">Password</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signinPassword" name="hrPassword" placeholder="Enter your password" required>
+                        <button type="button" class="password-toggle" id="toggleSigninPassword">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="remember-forgot">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="btn">Sign In</button>
+                
+                <!-- <div class="demo-accounts">
+                    <h3>Demo Accounts (for testing):</h3>
+                    <div class="demo-account"><strong>HR Manager:</strong> hr@techcorp.com / password123</div>
+                    <div class="demo-account"><strong>Recruiter:</strong> recruiter@innosoft.com / password123</div>
+                </div> -->
+            </form>
+            
+            <!-- Registration Form -->
+            <form class="registration-form" id="companyRegistrationForm" action="/save_company" method="post">
+                <div class="form-header">
+                    <h2>Create Company Account</h2>
+                    <p>Fill in your company details to get started</p>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="progress-bar">
+                    <div class="progress-step active">
+                        <div class="step-number">1</div>
+                        <div class="step-name">Company Info</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">2</div>
+                        <div class="step-name">HR Details</div>
+                    </div>
+                    <div class="progress-step">
+                        <div class="step-number">3</div>
+                        <div class="step-name">Complete</div>
+                    </div>
+                </div>
+                
+                <!-- Step 1: Company Information -->
+                <div class="form-step active" id="step1">
+                    <div class="form-group">
+                        <label for="companyName">Company Name *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-building"></i>
+                            <input type="text" id="companyName" name="companyName" placeholder="Enter your company name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="companyLocation">Company Location *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" id="companyLocation" name="companyLocation" placeholder="Enter company location" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="companyType">Company Type</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-briefcase"></i>
+                            <select id="companyType" name="companyType">
+                                <option value="">Select company type</option>
+                                <option value="Startup">Startup</option>
+                                <option value="SME">SME</option>
+                                <option value="Enterprise">Enterprise</option>
+                                <option value="MNC">MNC</option>
+                                <option value="Government">Government</option>
+                                <option value="Non-Profit">Non-Profit</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="industry">Industry</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-industry"></i>
+                            <input type="text" id="industry" name="industry" placeholder="e.g., Information Technology">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <div></div> <!-- Empty div for spacing -->
+                        <button type="button" class="btn" id="nextToStep2">Next</button>
+                    </div>
+                </div>
+                
+                <!-- Step 2: HR Details -->
+                <div class="form-step" id="step2">
+                    <div class="form-group">
+                        <label for="hrName">HR Name *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="hrName" name="hrName" placeholder="Enter HR representative name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hrDesignation">HR Designation *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-id-badge"></i>
+                            <input type="text" id="hrDesignation" name="hrDesignation" placeholder="e.g., HR Manager" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hrMobile">HR Mobile *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                            <input type="tel" id="hrMobile" name="hrMobile" placeholder="Enter mobile number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hrEmail">HR Email *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="hrEmail" name="hrEmail" placeholder="Enter email address" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="hrPassword">Password *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="hrPassword" name="hrPassword" placeholder="Create a password" required>
+                            <button type="button" class="password-toggle" id="togglePassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                        </div>
+                        <div class="password-requirements">
+                            <div class="requirement unmet" id="lengthReq">
+                                <i class="fas fa-circle"></i> At least 8 characters
+                            </div>
+                            <div class="requirement unmet" id="uppercaseReq">
+                                <i class="fas fa-circle"></i> One uppercase letter
+                            </div>
+                            <div class="requirement unmet" id="numberReq">
+                                <i class="fas fa-circle"></i> One number
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- <div class="form-group">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                        </div>
+                        <div id="passwordMatchMessage" style="margin-top: 5px; font-size: 0.8rem;"></div>
+                    </div> -->
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="backToStep1">Back</button>
+                        <button type="submit" class="btn" id="submitForm">Register Company</button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Success Message -->
+                <div class="form-step" id="step3">
+                    <div style="text-align: center; padding: 30px 0;">
+                        <div style="font-size: 4rem; color: var(--success); margin-bottom: 20px;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h2 style="margin-bottom: 15px;">Registration Successful!</h2>
+                        <p style="color: var(--gray); margin-bottom: 30px;">
+                            Thank you for registering your company with CareerConnect. We've sent a verification email to your HR representative.
+                        </p>
+                        <div style="display: flex; gap: 15px; justify-content: center;">
+                            <a href="#" class="btn" style="width: auto; padding: 10px 20px;">
+                                <i class="fas fa-tachometer-alt"></i> Go to Dashboard
+                            </a>
+                            <a href="#" class="btn btn-outline" style="width: auto; padding: 10px 20px;">
+                                <i class="fas fa-plus"></i> Post a Job
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <div class="form-footer">
+                <span id="formFooterText">Don't have an account? <a href="#" id="formToggleLink">Sign Up</a></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const signinToggle = document.getElementById('signinToggle');
+        const registerToggle = document.getElementById('registerToggle');
+        const signinForm = document.getElementById('signinForm');
+        const registrationForm = document.getElementById('companyRegistrationForm');
+        const formToggleLink = document.getElementById('formToggleLink');
+        const formFooterText = document.getElementById('formFooterText');
+        
+        // Registration form elements
+        const nextToStep2Btn = document.getElementById('nextToStep2');
+        const backToStep1Btn = document.getElementById('backToStep1');
+        const submitFormBtn = document.getElementById('submitForm');
+        const formSteps = document.querySelectorAll('.form-step');
+        const progressSteps = document.querySelectorAll('.progress-step');
+        const togglePasswordBtn = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('hrPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordStrengthBar = document.getElementById('passwordStrengthBar');
+        const passwordMatchMessage = document.getElementById('passwordMatchMessage');
+        
+        // // Sign in form elements
+        // const toggleSigninPasswordBtn = document.getElementById('toggleSigninPassword');
+        // const signinPasswordInput = document.getElementById('signinPassword');
+        
+        // Password requirements elements
+        const lengthReq = document.getElementById('lengthReq');
+        const uppercaseReq = document.getElementById('uppercaseReq');
+        const numberReq = document.getElementById('numberReq');
+        
+        // Form Toggle Functionality
+        signinToggle.addEventListener('click', () => {
+            setActiveForm('signin');
+        });
+        
+        registerToggle.addEventListener('click', () => {
+            setActiveForm('register');
+        });
+        
+        formToggleLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (signinForm.classList.contains('active')) {
+                setActiveForm('register');
+            } else {
+                setActiveForm('signin');
+            }
+        });
+        
+        function setActiveForm(formType) {
+            if (formType === 'signin') {
+                signinToggle.classList.add('active');
+                registerToggle.classList.remove('active');
+                signinForm.classList.add('active');
+                registrationForm.classList.remove('active');
+                formFooterText.innerHTML = 'Don\'t have an account? <a href="#" id="formToggleLink">Sign Up</a>';
+            } else {
+                signinToggle.classList.remove('active');
+                registerToggle.classList.add('active');
+                signinForm.classList.remove('active');
+                registrationForm.classList.add('active');
+                formFooterText.innerHTML = 'Already have an account? <a href="#" id="formToggleLink">Sign In</a>';
+            }
+            
+            // Re-attach event listener to the new link
+            document.getElementById('formToggleLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                if (signinForm.classList.contains('active')) {
+                    setActiveForm('register');
+                } else {
+                    setActiveForm('signin');
+                }
+            });
+        }
+        
+        // Registration Form Step Navigation
+        let currentStep = 1;
+        
+        nextToStep2Btn.addEventListener('click', () => {
+            // Validate step 1
+            const companyName = document.getElementById('companyName').value;
+            const companyLocation = document.getElementById('companyLocation').value;
+            
+            if (!companyName || !companyLocation) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Move to step 2
+            updateStep(2);
+        });
+        
+        backToStep1Btn.addEventListener('click', () => {
+            updateStep(1);
+        });
+        
+        // Registration Form Submission
+        // registrationForm.addEventListener('submit', (e) => {
+        //     e.preventDefault();
+            
+        //     // Validate step 2
+        //     const hrName = document.getElementById('hrName').value;
+        //     const hrDesignation = document.getElementById('hrDesignation').value;
+        //     const hrMobile = document.getElementById('hrMobile').value;
+        //     const hrEmail = document.getElementById('hrEmail').value;
+        //     const hrPassword = document.getElementById('hrPassword').value;
+        //     const confirmPassword = document.getElementById('confirmPassword').value;
+            
+        //     if (!hrName || !hrDesignation || !hrMobile || !hrEmail || !hrPassword || !confirmPassword) {
+        //         alert('Please fill in all required fields');
+        //         return;
+        //     }
+            
+        //     if (hrPassword !== confirmPassword) {
+        //         alert('Passwords do not match');
+        //         return;
+        //     }
+            
+        //     // In a real application, you would send the data to the server here
+        //     console.log('Registration form submitted with data:', {
+        //         companyName: document.getElementById('companyName').value,
+        //         companyLocation: document.getElementById('companyLocation').value,
+        //         companyType: document.getElementById('companyType').value,
+        //         industry: document.getElementById('industry').value,
+        //         hrName: hrName,
+        //         hrDesignation: hrDesignation,
+        //         hrMobile: hrMobile,
+        //         hrEmail: hrEmail,
+        //         hrPassword: hrPassword
+        //     });
+            
+        //     // Move to success step
+        //     updateStep(3);
+        // });
+        
+        // Sign In Form Submission
+        // signinForm.addEventListener('submit', (e) => {
+        //     e.preventDefault();
+            
+        //     const email = document.getElementById('signinEmail').value;
+        //     const password = document.getElementById('signinPassword').value;
+        //     const rememberMe = document.getElementById('rememberMe').checked;
+            
+        //     if (!email || !password) {
+        //         alert('Please fill in all required fields');
+        //         return;
+        //     }
+            
+        //     // Demo authentication (in real app, this would be a server call)
+        //     if ((email === 'hr@techcorp.com' && password === 'password123') || 
+        //         (email === 'recruiter@innosoft.com' && password === 'password123')) {
+        //         console.log('Sign in successful for:', email);
+        //         alert('Sign in successful! Redirecting to dashboard...');
+        //         // In a real app, you would redirect to the dashboard here
+        //         // window.location.href = '/dashboard';
+        //     } else {
+        //         alert('Invalid email or password. Please try again.');
+        //     }
+        // });
+        
+        // Update step function
+        function updateStep(step) {
+            // Hide all steps
+            formSteps.forEach(formStep => {
+                formStep.classList.remove('active');
+            });
+            
+            // Remove active class from all progress steps
+            progressSteps.forEach(progressStep => {
+                progressStep.classList.remove('active');
+            });
+            
+            // Show current step
+            document.getElementById(`step${step}`).classList.add('active');
+            
+            // Activate current progress step
+            for (let i = 0; i < step; i++) {
+                progressSteps[i].classList.add('active');
+            }
+            
+            currentStep = step;
+        }
+        
+        // Toggle password visibility (Registration)
+        togglePasswordBtn.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePasswordBtn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+        
+        // Toggle password visibility (Sign In)
+        toggleSigninPasswordBtn.addEventListener('click', () => {
+            const type = signinPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            signinPasswordInput.setAttribute('type', type);
+            toggleSigninPasswordBtn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+        });
+        
+        // Password strength checker
+        passwordInput.addEventListener('input', () => {
+            const password = passwordInput.value;
+            let strength = 0;
+            
+            // Check password length
+            if (password.length >= 8) {
+                strength += 33;
+                lengthReq.classList.remove('unmet');
+                lengthReq.classList.add('met');
+                lengthReq.innerHTML = '<i class="fas fa-check-circle"></i> At least 8 characters';
+            } else {
+                lengthReq.classList.remove('met');
+                lengthReq.classList.add('unmet');
+                lengthReq.innerHTML = '<i class="fas fa-circle"></i> At least 8 characters';
+            }
+            
+            // Check for uppercase letters
+            if (/[A-Z]/.test(password)) {
+                strength += 33;
+                uppercaseReq.classList.remove('unmet');
+                uppercaseReq.classList.add('met');
+                uppercaseReq.innerHTML = '<i class="fas fa-check-circle"></i> One uppercase letter';
+            } else {
+                uppercaseReq.classList.remove('met');
+                uppercaseReq.classList.add('unmet');
+                uppercaseReq.innerHTML = '<i class="fas fa-circle"></i> One uppercase letter';
+            }
+            
+            // Check for numbers
+            if (/[0-9]/.test(password)) {
+                strength += 34;
+                numberReq.classList.remove('unmet');
+                numberReq.classList.add('met');
+                numberReq.innerHTML = '<i class="fas fa-check-circle"></i> One number';
+            } else {
+                numberReq.classList.remove('met');
+                numberReq.classList.add('unmet');
+                numberReq.innerHTML = '<i class="fas fa-circle"></i> One number';
+            }
+            
+            // Update strength bar
+            passwordStrengthBar.style.width = `${strength}%`;
+            
+            // Update strength bar color
+            if (strength < 40) {
+                passwordStrengthBar.style.backgroundColor = '#ef4444'; // Red
+            } else if (strength < 70) {
+                passwordStrengthBar.style.backgroundColor = '#f59e0b'; // Orange
+            } else {
+                passwordStrengthBar.style.backgroundColor = '#10b981'; // Green
+            }
+            
+            // Check password match
+            checkPasswordMatch();
+        });
+        
+        // Confirm password match
+        confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+        
+        function checkPasswordMatch() {
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+            
+            if (confirmPassword === '') {
+                passwordMatchMessage.textContent = '';
+                passwordMatchMessage.style.color = '';
+            } else if (password === confirmPassword) {
+                passwordMatchMessage.textContent = 'Passwords match';
+                passwordMatchMessage.style.color = '#10b981';
+            } else {
+                passwordMatchMessage.textContent = 'Passwords do not match';
+                passwordMatchMessage.style.color = '#ef4444';
+            }
+        }
+    </script>
+</body>
+</html>

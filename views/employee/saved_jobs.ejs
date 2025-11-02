@@ -1,0 +1,40 @@
+<%- include('navbar.ejs') %>
+<div class="col-md-9 card card-body shadow me-5 float-end mt-5">
+    <h2 class="text-center">Saved Jobs</h2>
+    <table class="table table-striped mt-4 text-center border shadow">
+        <thead>
+            <tr>
+                <th>Job Title</th>
+                <th>Company</th>
+                <th>Saved On</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% savedJobs.forEach(function(job) { %>
+                <tr>
+                    <td><%= job.job_title %></td>
+                    <td><%= job.company_name %></td>
+                    <td><%= new Date(job.saved_at).toLocaleDateString() %></td>
+
+                    <td>
+                        <a href="/employee/unsave_job/<%= job.job_id %>" class="btn btn-outline-danger btn-sm">Unsave Job</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+
+<style>
+    @media (max-width: 768px) {
+        .col-md-9 {
+            /* margin-top: 20px !important;
+            margin-left: 50px !important; */
+            width: auto !important;
+            margin: 20px !important;
+            padding: 10px !important;
+        }
+    }
+</style>

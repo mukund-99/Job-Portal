@@ -1,0 +1,89 @@
+<%- include('navbar.ejs') %>
+
+<style>
+    .card{
+        border-radius: 15px;
+    }
+    .form-label {
+        font-weight: 600;
+    }
+    .btn-save {
+        background-color: #0d6efd;
+        color: white;
+    } 
+    .btn-save:hover {
+        background-color: #0b5ed7; 
+    } 
+</style>
+
+<div class="main-content">
+    <div class="col-md-12">
+        <div class="card card-body shadow-lg">
+        <form action="/company/update_job/<%= job[0].job_id %>" method="POST"> 
+            <div class="row g-3"> 
+                <div class="col-md-6">
+                    <input type="hidden" name="job_id" value="<%= job[0].job_id %>">
+                     <label class="form-label">Job Title</label>
+                      <input type="text" name="job_title" class="form-control" value="<%= job[0].job_title %>" required> 
+                    </div>
+                     <div class="col-md-6">
+                         <label class="form-label">Category</label> 
+                         <input type="text" name="job_category" class="form-control" value="<%= job[0].job_category %>">
+                         </div> 
+                         <div class="col-md-6">
+                             <label class="form-label">Job Type</label> 
+                           
+                             <select name="job_type" class="form-select">
+                                 <option value="">Select</option> 
+                                 <option value="Full Time" <%= job[0].job_type === 'Full Time' ? 'selected' : '' %>>Full Time</option> 
+                                 <option value="Part Time" <%= job[0].job_type === 'Part Time' ? 'selected' : '' %>>Part Time</option>
+                                  <option value="Internship" <%= job[0].job_type === 'Internship' ? 'selected' : '' %>>Internship</option> 
+                                  <option value="Remote" <%= job[0].job_type === 'Remote' ? 'selected' : '' %>>Remote</option> 
+                                  <option value="Contract" <%= job[0].job_type === 'Contract' ? 'selected' : '' %>>Contract</option> 
+                                  <option value="Temporary" <%= job[0].job_type === 'Temporary' ? 'selected' : '' %>>Temporary</option> 
+                                </select>
+                             </div>
+                              <div class="col-md-3">
+                                 <label class="form-label">Min Exp (Years)</label> 
+                                 <input type="number" name="experience_min" class="form-control" value="<%= job[0].experience_min %>"> 
+                                </div>
+                                 <div class="col-md-3"> 
+                                    <label class="form-label">Max Exp (Years)</label>
+                                     <input type="number" name="experience_max" class="form-control" value="<%= job[0].experience_max %>">
+                                    </div>
+                                    <div class="col-md-6">
+                                         <label class="form-label">Skills Required</label> 
+                                         <input type="text" name="skills_required" class="form-control" value="<%= job[0].skills_required %>"> 
+                                        </div>
+                                         <div class="col-md-3"> 
+                                            <label class="form-label">Vacancies</label> 
+                                            <input type="number" name="vacancies" class="form-control" value="<%= job[0].vacancies %>">
+                                         </div>
+                                          <div class="col-md-3">
+                                             <label class="form-label">Status</label> 
+                                             <select name="status" class="form-select"> 
+                                                <option value="Open" <%= job.status === 'Open' ? 'selected' : '' %>>Open</option>
+                                                <option value="Closed" <%= job.status === 'Closed' ? 'selected' : '' %>>Closed</option> 
+                                                <option value="Paused" <%= job.status === 'Paused' ? 'selected' : '' %>>Paused</option> 
+                                             </select> 
+                                            </div>
+                                             <div class="col-12">
+                                                 <label class="form-label">Reference Link (Optional)</label>
+                                                  <input type="url" name="reference_link" class="form-control" value="<%= job[0].reference_link ||'' %>">
+                                                 </div>
+                                                  <div class="col-12">
+                                                     <label class="form-label">Job Details</label>
+                                                      <textarea name="details" rows="4" class="form-control"><%= job[0].job_description %></textarea> 
+                                                    </div>
+                                                 </div>
+                                                  <div class="mt-4 ">
+                                                     <a href="/company/list_jobs" class="btn btn-outline-secondary ms-5">
+                                                         <i class="fa-solid fa-arrow-left"></i> Cancel </a> 
+                                                         <button type="submit" class="btn btn-save float-end me-5">
+                                                            <i class="fa-solid fa-floppy-disk"></i> Save Changes </button>
+                                                         </div> 
+                                                        </form>
+                                                        </div>
+    </div>
+</div>
+<%- include('footer.ejs') %>
