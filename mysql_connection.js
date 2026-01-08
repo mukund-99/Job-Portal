@@ -13,7 +13,7 @@ if (!dbUser) {
 
 var conn = mysql.createConnection({
     host: process.env.HOST || 'localhost',
-    user: dbUser,
+    user: process.env.USER,
     password: process.env.PASSWORD,
     database: process.env.DATABASE
 });
